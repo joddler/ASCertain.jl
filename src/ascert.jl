@@ -41,7 +41,7 @@ function certify(S::Vector{Region}, prob::CertProblem, ws::CertWorkspace,opts::C
                 terminate_cb |= callback(S,prob,ws,opts)
             end
         end
-        terminate_cb && return ws.F, ws.iter_max, ws.N_fin, ws.ASs, ws.bin, ws.ASs_state
+        terminate_cb && return ws.F, ws.iter_max, 20, ws.ASs, ws.bin, ws.ASs_state
 
         # Pop and process region
         region = pop!(S);

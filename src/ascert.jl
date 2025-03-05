@@ -35,16 +35,15 @@ function certify(S::Vector{Region}, prob::CertProblem, ws::CertWorkspace,opts::C
     while(!isempty(S) && ws.N_fin < opts.output_limit )
         # Run all callbacks
         terminate_cb = false
-        return_overflow_handle = false
         for (condition,callback) in opts.conditioned_callbacks
             if(condition(S,prob,ws,opts))
                 terminate_cb |= callback(S,prob,ws,opts)
             end
         end
-        if false
-            terminate_cb && return ws.F, ws.iter_max, ws.N_fin, ws.ASs, ws.bin, ws.ASs_state
-        else
+        if opts.return_overflow_handle_with_conditioned_callbacks
             terminate_cb && return opts.overflow_handle(S,prob,ws,opts)
+        else
+            terminate_cb && return ws.F, ws.iter_max, ws.N_fin, ws.ASs, ws.bin, ws.ASs_state
         end
 
         # Pop and process region

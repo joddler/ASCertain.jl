@@ -152,6 +152,7 @@ Base.@kwdef mutable struct CertSettings
     minrep_regions::Bool = false
     output_limit::Int64= 1e14
     overflow_handle::Function = ASCertain.default_overflow_handle
+    return_overflow_handle_with_conditioned_callbacks::Bool = false
 end
 
 mutable struct CertWorkspace

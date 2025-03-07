@@ -164,7 +164,28 @@ function terminate(region::Region,ws::CertWorkspace,opts::CertSettings,storage_l
         ws.ASs = update_ASs(ws.ASs,AS_bool);
         push!(ws.ASs_state,region.state)
     end
-    storage_level==0 && return # Store nothing
+
+    
+    #storage_level==0 && return # Store nothing
+    if storage_level==0 && opts.compute_chebyball
+        if(opts.store_regions)
+            c,r = center(region.Ath,region.bth)
+        else
+            c,r = center([ws.Ath[:,1:region.start_ind] region.Ath],
+                         [ws.bth[1:region.start_ind]; region.bth])
+        end
+        r < opts.eps_cheby && return ## Do not store low-dimensional regions
+        if haskey(ws.bin,"Chebyball")
+            push!(ws.bin["Chebyball"], (c,r))
+            #region.chebyball = (c,r)
+        else
+            push!(ws.bin,"Chebyball" =>[])
+            push!(ws.bin["Chebyball"], (c,r))
+        end
+        return
+    elseif storage_level==0
+       return 
+    end
 
     if storage_level < 2 
         region.Lam, region.L, region.D  = zeros(0,0),zeros(0,0),zeros(0)

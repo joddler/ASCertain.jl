@@ -177,9 +177,11 @@ function terminate(region::Region,ws::CertWorkspace,opts::CertSettings,storage_l
         r < opts.eps_cheby && return ## Do not store low-dimensional regions
         if haskey(ws.bin,"Chebyball")
             push!(ws.bin["Chebyball"], (c,r))
+            println("Pushing")
             #region.chebyball = (c,r)
         else
             push!(ws.bin,"Chebyball" =>[])
+            println("Pushing")
             push!(ws.bin["Chebyball"], (c,r))
         end
         return

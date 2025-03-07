@@ -168,6 +168,8 @@ function terminate(region::Region,ws::CertWorkspace,opts::CertSettings,storage_l
     
     #storage_level==0 && return # Store nothing
     if storage_level==0 && opts.compute_chebyball
+        #Should this be here?
+        opts.store_regions && extract_regions(region,ws;minrep_regions=opts.minrep_regions)
         if(opts.store_regions)
             c,r = center(region.Ath,region.bth)
         else

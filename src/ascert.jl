@@ -181,7 +181,7 @@ function terminate(region::Region,ws::CertWorkspace,opts::CertSettings,storage_l
             push!(ws.bin["Chebyball"], (c,r))
             #region.chebyball = (c,r)
         else
-            push!(ws.bin,"Chebyball" =>[])
+            #push!(ws.bin,"Chebyball" =>[])
             push!(ws.bin["Chebyball"], (c,r))
         end
         return
